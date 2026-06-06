@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCatalogo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_principal"
+    tools:context=".CatalogoActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pantalla">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/gamestore"
+                android:textColor="@color/color_titulo"
+                android:textSize="@dimen/texto_titulo_tienda"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_pequeno"
+                android:text="@string/catalogo_productos"
+                android:textColor="@color/color_subtitulo"
+                android:textSize="@dimen/texto_subtitulo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/color_blanco"
+                    android:padding="@dimen/padding_imagen"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/auricular_redragon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/producto_auricular_nombre"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_nombre_producto"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_pequeno"
+                    android:text="@string/producto_auricular_precio"
+                    android:textColor="@color/color_precio"
+                    android:textSize="@dimen/texto_precio"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnVerProducto1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/ver_detalle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/color_blanco"
+                    android:padding="@dimen/padding_imagen"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/mouse_logitech_g305" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/producto_mouse_nombre"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_nombre_producto"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_pequeno"
+                    android:text="@string/producto_mouse_precio"
+                    android:textColor="@color/color_precio"
+                    android:textSize="@dimen/texto_precio"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnVerProducto2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/ver_detalle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/color_blanco"
+                    android:padding="@dimen/padding_imagen"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/teclado_redragon_kumara" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/producto_teclado_nombre"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_nombre_producto"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_pequeno"
+                    android:text="@string/producto_teclado_precio"
+                    android:textColor="@color/color_precio"
+                    android:textSize="@dimen/texto_precio"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnVerProducto3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/ver_detalle" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

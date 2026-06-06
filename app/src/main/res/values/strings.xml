@@ -17,4 +17,21 @@
     <string name="productos_en_carrito_base">Productos en carrito: </string>
     <string name="total_estimado">Total estimado: $0</string>
     <string name="total_estimado_base">Total estimado: $</string>
+
+    <string name="catalogo_productos">Catálogo de productos</string>
+    <string name="ver_detalle">Ver detalle</string>
+
+    <string name="producto_auricular_nombre">Auriculares Redragon Zeus X RGB</string>
+    <string name="producto_auricular_precio">$89.999</string>
+    <string name="producto_auricular_descripcion">Auriculares gamer con sonido envolvente 7.1, micrófono desmontable e iluminación RGB. Diseñados para sesiones de juego prolongadas con máxima fidelidad sonora.</string>
+
+    <string name="producto_mouse_nombre">Mouse Logitech G305</string>
+    <string name="producto_mouse_precio">$59.999</string>
+    <string name="producto_mouse_descripcion">Mouse gamer inalámbrico con sensor preciso, diseño liviano y gran autonomía para sesiones de juego prolongadas.</string>
+
+    <string name="producto_teclado_nombre">Teclado Redragon Kumara K552</string>
+    <string name="producto_teclado_precio">$74.999</string>
+    <string name="producto_teclado_descripcion">Teclado mecánico compacto con retroiluminación, estructura resistente y switches ideales para gaming.</string>
+
+    <string name="volver_al_catalogo">Volver al catálogo</string>
 </resources>

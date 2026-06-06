@@ -1,8 +1,10 @@
 package com.example.gamestore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,13 +19,19 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnAgregarCarrito;
     private Button btnVaciarCarrito;
+    private Button btnVolverCatalogo;
+    private TextView txtNombreProducto;
+    private TextView txtPrecio;
+    private TextView txtDescripcion;
     private TextView txtContadorCarrito;
     private TextView txtCarritoVacio;
     private TextView txtTotalEstimado;
+    private ImageView imgProducto;
     private LinearLayout layoutCarrito;
 
     private int cantidadProductos = 0;
-    private final int precioProducto = 89999;
+    private int precioProducto = 0;
+    private String nombreProductoActual = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +50,17 @@ public class MainActivity extends AppCompatActivity {
 
         btnAgregarCarrito = findViewById(R.id.btnAgregarCarrito);
         btnVaciarCarrito = findViewById(R.id.btnVaciarCarrito);
+        btnVolverCatalogo = findViewById(R.id.btnVolverCatalogo);
+        txtNombreProducto = findViewById(R.id.txtNombreProducto);
+        txtPrecio = findViewById(R.id.txtPrecio);
+        txtDescripcion = findViewById(R.id.txtDescripcion);
         txtContadorCarrito = findViewById(R.id.txtContadorCarrito);
         txtCarritoVacio = findViewById(R.id.txtCarritoVacio);
         txtTotalEstimado = findViewById(R.id.txtTotalEstimado);
+        imgProducto = findViewById(R.id.imgProducto);
         layoutCarrito = findViewById(R.id.layoutCarrito);
+
+        recibirDatosDelCatalogo();
 
         btnAgregarCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +75,40 @@ public class MainActivity extends AppCompatActivity {
                 vaciarCarrito();
             }
         });
+
+        btnVolverCatalogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CatalogoActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void recibirDatosDelCatalogo() {
+        Intent intent = getIntent();
+
+        if (intent != null && intent.hasExtra("nombre")) {
+            nombreProductoActual = intent.getStringExtra("nombre");
+            String precioTexto = intent.getStringExtra("precio");
+            String descripcion = intent.getStringExtra("descripcion");
+            int imagen = intent.getIntExtra("imagen", R.drawable.auricular_redragon);
+
+            txtNombreProducto.setText(nombreProductoActual);
+            txtPrecio.setText(precioTexto);
+            txtDescripcion.setText(descripcion);
+            imgProducto.setImageResource(imagen);
+
+            precioProducto = convertirPrecioANumero(precioTexto);
+        } else {
+            nombreProductoActual = txtNombreProducto.getText().toString();
+            precioProducto = convertirPrecioANumero(txtPrecio.getText().toString());
+        }
+    }
+
+    private int convertirPrecioANumero(String precioTexto) {
+        String precioLimpio = precioTexto.replace("$", "").replace(".", "").trim();
+        return Integer.parseInt(precioLimpio);
     }
 
     private void agregarProductoAlCarrito() {
@@ -68,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         TextView nuevoProducto = new TextView(this);
-        nuevoProducto.setText(getString(R.string.producto_carrito));
+        nuevoProducto.setText("• " + nombreProductoActual + " - " + txtPrecio.getText().toString());
         nuevoProducto.setTextSize(16);
         nuevoProducto.setTextColor(getResources().getColor(android.R.color.white));
         nuevoProducto.setPadding(0, 0, 0, 20);
@@ -76,12 +125,12 @@ public class MainActivity extends AppCompatActivity {
         layoutCarrito.addView(nuevoProducto);
 
         cantidadProductos++;
-        txtContadorCarrito.setText(getString(R.string.productos_en_carrito_base) + cantidadProductos);
+        txtContadorCarrito.setText("Productos en carrito: " + cantidadProductos);
 
         int total = cantidadProductos * precioProducto;
-        txtTotalEstimado.setText(getString(R.string.total_estimado_base) + total);
+        txtTotalEstimado.setText("Total estimado: $" + total);
 
-        Toast.makeText(this, getString(R.string.mensaje_producto_agregado), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Producto agregado al carrito", Toast.LENGTH_SHORT).show();
     }
 
     private void vaciarCarrito() {
@@ -89,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
         layoutCarrito.addView(txtCarritoVacio);
 
         cantidadProductos = 0;
-        txtContadorCarrito.setText(getString(R.string.productos_en_carrito));
-        txtTotalEstimado.setText(getString(R.string.total_estimado));
+        txtContadorCarrito.setText("Productos en carrito: 0");
+        txtTotalEstimado.setText("Total estimado: $0");
 
-        Toast.makeText(this, getString(R.string.mensaje_carrito_vaciado), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Carrito vaciado", Toast.LENGTH_SHORT).show();
     }
 }
