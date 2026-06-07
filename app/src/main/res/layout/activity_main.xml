@@ -29,7 +29,7 @@
                 android:id="@+id/btnVolverCatalogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Volver al catálogo" />
+                android:text="@string/volver_al_catalogo" />
 
             <TextView
                 android:id="@+id/txtTituloTienda"
@@ -106,6 +106,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_boton_secundario"
                 android:text="@string/vaciar_carrito" />
+
+            <Button
+                android:id="@+id/btnIrAlCarrito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_boton_secundario"
+                android:text="@string/ir_al_carrito" />
 
             <TextView
                 android:id="@+id/txtContadorCarrito"

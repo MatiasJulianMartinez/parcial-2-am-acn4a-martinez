@@ -8,6 +8,7 @@
     <dimen name="margin_boton_secundario">14dp</dimen>
 
     <dimen name="alto_imagen_producto">260dp</dimen>
+    <dimen name="alto_imagen_catalogo">180dp</dimen>
 
     <dimen name="padding_imagen">12dp</dimen>
     <dimen name="padding_contador">14dp</dimen>

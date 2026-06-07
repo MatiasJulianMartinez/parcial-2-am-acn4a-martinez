@@ -51,7 +51,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="@dimen/alto_imagen_catalogo"
                     android:background="@color/color_blanco"
                     android:padding="@dimen/padding_imagen"
                     android:scaleType="fitCenter"
@@ -93,7 +93,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="@dimen/alto_imagen_catalogo"
                     android:background="@color/color_blanco"
                     android:padding="@dimen/padding_imagen"
                     android:scaleType="fitCenter"
@@ -135,7 +135,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="@dimen/alto_imagen_catalogo"
                     android:background="@color/color_blanco"
                     android:padding="@dimen/padding_imagen"
                     android:scaleType="fitCenter"

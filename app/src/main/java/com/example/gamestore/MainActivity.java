@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnAgregarCarrito;
     private Button btnVaciarCarrito;
     private Button btnVolverCatalogo;
+    private Button btnIrAlCarrito;
     private TextView txtNombreProducto;
     private TextView txtPrecio;
     private TextView txtDescripcion;
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgProducto;
     private LinearLayout layoutCarrito;
 
-    private int cantidadProductos = 0;
-    private int precioProducto = 0;
     private String nombreProductoActual = "";
 
     @Override
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btnAgregarCarrito = findViewById(R.id.btnAgregarCarrito);
         btnVaciarCarrito = findViewById(R.id.btnVaciarCarrito);
         btnVolverCatalogo = findViewById(R.id.btnVolverCatalogo);
+        btnIrAlCarrito = findViewById(R.id.btnIrAlCarrito);
         txtNombreProducto = findViewById(R.id.txtNombreProducto);
         txtPrecio = findViewById(R.id.txtPrecio);
         txtDescripcion = findViewById(R.id.txtDescripcion);
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         layoutCarrito = findViewById(R.id.layoutCarrito);
 
         recibirDatosDelCatalogo();
+        actualizarResumenCarrito();
 
         btnAgregarCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +84,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnIrAlCarrito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CarritoActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        actualizarResumenCarrito();
     }
 
     private void recibirDatosDelCatalogo() {
@@ -98,49 +113,40 @@ public class MainActivity extends AppCompatActivity {
             txtPrecio.setText(precioTexto);
             txtDescripcion.setText(descripcion);
             imgProducto.setImageResource(imagen);
-
-            precioProducto = convertirPrecioANumero(precioTexto);
         } else {
             nombreProductoActual = txtNombreProducto.getText().toString();
-            precioProducto = convertirPrecioANumero(txtPrecio.getText().toString());
         }
-    }
-
-    private int convertirPrecioANumero(String precioTexto) {
-        String precioLimpio = precioTexto.replace("$", "").replace(".", "").trim();
-        return Integer.parseInt(precioLimpio);
     }
 
     private void agregarProductoAlCarrito() {
-        if (txtCarritoVacio.getParent() != null) {
-            layoutCarrito.removeView(txtCarritoVacio);
-        }
+        CarritoManager.agregarProducto(nombreProductoActual, txtPrecio.getText().toString());
+        actualizarResumenCarrito();
 
-        TextView nuevoProducto = new TextView(this);
-        nuevoProducto.setText("• " + nombreProductoActual + " - " + txtPrecio.getText().toString());
-        nuevoProducto.setTextSize(16);
-        nuevoProducto.setTextColor(getResources().getColor(android.R.color.white));
-        nuevoProducto.setPadding(0, 0, 0, 20);
-
-        layoutCarrito.addView(nuevoProducto);
-
-        cantidadProductos++;
-        txtContadorCarrito.setText("Productos en carrito: " + cantidadProductos);
-
-        int total = cantidadProductos * precioProducto;
-        txtTotalEstimado.setText("Total estimado: $" + total);
-
-        Toast.makeText(this, "Producto agregado al carrito", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.mensaje_producto_agregado), Toast.LENGTH_SHORT).show();
     }
 
     private void vaciarCarrito() {
+        CarritoManager.vaciarCarrito();
+        actualizarResumenCarrito();
+
+        Toast.makeText(this, getString(R.string.mensaje_carrito_vaciado), Toast.LENGTH_SHORT).show();
+    }
+
+    private void actualizarResumenCarrito() {
         layoutCarrito.removeAllViews();
-        layoutCarrito.addView(txtCarritoVacio);
 
-        cantidadProductos = 0;
-        txtContadorCarrito.setText("Productos en carrito: 0");
-        txtTotalEstimado.setText("Total estimado: $0");
+        if (CarritoManager.getCantidadProductos() == 0) {
+            layoutCarrito.addView(txtCarritoVacio);
+        } else {
+            TextView resumenProductos = new TextView(this);
+            resumenProductos.setText(CarritoManager.getProductosTexto());
+            resumenProductos.setTextSize(16);
+            resumenProductos.setTextColor(getResources().getColor(android.R.color.white));
+            resumenProductos.setPadding(0, 0, 0, 20);
+            layoutCarrito.addView(resumenProductos);
+        }
 
-        Toast.makeText(this, "Carrito vaciado", Toast.LENGTH_SHORT).show();
+        txtContadorCarrito.setText(getString(R.string.productos_en_carrito_base) + CarritoManager.getCantidadProductos());
+        txtTotalEstimado.setText(getString(R.string.total_estimado_base) + CarritoManager.getTotal());
     }
 }

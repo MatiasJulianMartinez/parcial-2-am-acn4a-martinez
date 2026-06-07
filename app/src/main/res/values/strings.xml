@@ -34,4 +34,19 @@
     <string name="producto_teclado_descripcion">Teclado mecánico compacto con retroiluminación, estructura resistente y switches ideales para gaming.</string>
 
     <string name="volver_al_catalogo">Volver al catálogo</string>
+    <string name="ir_al_carrito">Ir al carrito</string>
+
+    <string name="resumen_del_carrito">Resumen del carrito</string>
+    <string name="resumen_producto">Producto:</string>
+    <string name="resumen_cantidad">Cantidad:</string>
+    <string name="resumen_total">Total estimado:</string>
+    <string name="estado_pendiente">Estado: pendiente</string>
+    <string name="estado_carrito_vacio">Estado: carrito vacío</string>
+    <string name="finalizar_compra">Finalizar compra</string>
+    <string name="volver_al_detalle">Volver al detalle</string>
+
+    <string name="cantidad_base">Cantidad: </string>
+    <string name="estado_compra_realizada">Estado: compra realizada</string>
+    <string name="pago_realizado">Pago realizado</string>
+    <string name="mensaje_pago_realizado">Pago realizado con éxito , recibira el seguimiento por correo.</string>
 </resources>
