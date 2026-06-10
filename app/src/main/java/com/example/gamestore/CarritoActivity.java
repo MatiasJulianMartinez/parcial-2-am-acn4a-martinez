@@ -90,6 +90,12 @@ public class CarritoActivity extends AppCompatActivity {
         btnPagar.setEnabled(false);
         btnPagar.setText(getString(R.string.pago_realizado));
 
-        Toast.makeText(this, getString(R.string.mensaje_pago_realizado), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.mensaje_pago_realizado), Toast.LENGTH_LONG).show();
+
+        CarritoManager.vaciarCarrito();
+
+        txtResumenProducto.setText(getString(R.string.productos_agregados));
+        txtResumenCantidad.setText(getString(R.string.cantidad_base) + "0");
+        txtResumenTotal.setText(getString(R.string.total_estimado));
     }
 }

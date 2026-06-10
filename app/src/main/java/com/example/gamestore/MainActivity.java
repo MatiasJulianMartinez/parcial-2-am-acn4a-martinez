@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnAgregarCarrito;
@@ -107,12 +109,22 @@ public class MainActivity extends AppCompatActivity {
             nombreProductoActual = intent.getStringExtra("nombre");
             String precioTexto = intent.getStringExtra("precio");
             String descripcion = intent.getStringExtra("descripcion");
-            int imagen = intent.getIntExtra("imagen", R.drawable.auricular_redragon);
+            int imagen = intent.getIntExtra("imagen", 0);
+            String imagenUrl = intent.getStringExtra("imagenUrl");
 
             txtNombreProducto.setText(nombreProductoActual);
             txtPrecio.setText(precioTexto);
             txtDescripcion.setText(descripcion);
-            imgProducto.setImageResource(imagen);
+
+            if (imagenUrl != null && !imagenUrl.isEmpty()) {
+                Glide.with(this)
+                        .load(imagenUrl)
+                        .into(imgProducto);
+            } else if (imagen != 0) {
+                imgProducto.setImageResource(imagen);
+            } else {
+                imgProducto.setImageResource(R.drawable.auricular_redragon);
+            }
         } else {
             nombreProductoActual = txtNombreProducto.getText().toString();
         }

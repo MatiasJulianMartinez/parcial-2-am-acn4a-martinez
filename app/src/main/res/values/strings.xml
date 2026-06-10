@@ -33,6 +33,10 @@
     <string name="producto_teclado_precio">$74.999</string>
     <string name="producto_teclado_descripcion">Teclado mecánico compacto con retroiluminación, estructura resistente y switches ideales para gaming.</string>
 
+    <string name="producto_harrow_nombre">Joystick Redragon Harrow Pro</string>
+    <string name="producto_harrow_precio">$64.999</string>
+    <string name="producto_harrow_descripcion">Joystick inalámbrico gamer con vibración, diseño ergonómico y buena autonomía para sesiones de juego prolongadas.</string>
+
     <string name="volver_al_catalogo">Volver al catálogo</string>
     <string name="ir_al_carrito">Ir al carrito</string>
 

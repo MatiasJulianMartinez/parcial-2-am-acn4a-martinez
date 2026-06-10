@@ -167,6 +167,48 @@
                     android:text="@string/ver_detalle" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
+
+                <ImageView
+                    android:id="@+id/imgProducto4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/alto_imagen_catalogo"
+                    android:background="@color/color_blanco"
+                    android:padding="@dimen/padding_imagen"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/producto_harrow_nombre"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_nombre_producto"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_pequeno"
+                    android:text="@string/producto_harrow_precio"
+                    android:textColor="@color/color_precio"
+                    android:textSize="@dimen/texto_precio"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnVerProducto4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/ver_detalle" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
