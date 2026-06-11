@@ -209,6 +209,61 @@
                     android:text="@string/ver_detalle" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/producto_online_titulo"
+                    android:textColor="@color/color_titulo_carrito"
+                    android:textSize="@dimen/texto_titulo_carrito"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgProductoOnline"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/alto_imagen_catalogo"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:background="@color/color_blanco"
+                    android:padding="@dimen/padding_imagen"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/txtProductoOnlineNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/cargando_producto_online"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_nombre_producto"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtProductoOnlinePrecio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_pequeno"
+                    android:text=""
+                    android:textColor="@color/color_precio"
+                    android:textSize="@dimen/texto_precio"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtProductoOnlineDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text=""
+                    android:textColor="@color/color_texto_secundario"
+                    android:textSize="@dimen/texto_descripcion" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

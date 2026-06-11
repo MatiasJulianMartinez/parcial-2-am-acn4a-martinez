@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class CatalogoActivity extends AppCompatActivity {
 
@@ -21,6 +31,11 @@ public class CatalogoActivity extends AppCompatActivity {
     private Button btnVerProducto3;
     private Button btnVerProducto4;
     private ImageView imgProducto4;
+
+    private ImageView imgProductoOnline;
+    private TextView txtProductoOnlineNombre;
+    private TextView txtProductoOnlinePrecio;
+    private TextView txtProductoOnlineDescripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +58,16 @@ public class CatalogoActivity extends AppCompatActivity {
         btnVerProducto4 = findViewById(R.id.btnVerProducto4);
         imgProducto4 = findViewById(R.id.imgProducto4);
 
+        imgProductoOnline = findViewById(R.id.imgProductoOnline);
+        txtProductoOnlineNombre = findViewById(R.id.txtProductoOnlineNombre);
+        txtProductoOnlinePrecio = findViewById(R.id.txtProductoOnlinePrecio);
+        txtProductoOnlineDescripcion = findViewById(R.id.txtProductoOnlineDescripcion);
+
         Glide.with(this)
                 .load("https://redragon.es/content/uploads/2023/10/harrow-pro-660x520-1.png")
                 .into(imgProducto4);
+
+        cargarProductoOnline();
 
         btnVerProducto1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +118,68 @@ public class CatalogoActivity extends AppCompatActivity {
         });
     }
 
+    private void cargarProductoOnline() {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://mocki.io/v1/aa5cef7f-92d0-4459-a58f-a684159c1d34")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
+                        txtProductoOnlinePrecio.setText("");
+                        txtProductoOnlineDescripcion.setText("");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.body() == null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
+                            txtProductoOnlinePrecio.setText("");
+                            txtProductoOnlineDescripcion.setText("");
+                        }
+                    });
+                    return;
+                }
+
+                String json = response.body().string();
+                Gson gson = new Gson();
+                ProductoOnline productoOnline = gson.fromJson(json, ProductoOnline.class);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (productoOnline != null) {
+                            txtProductoOnlineNombre.setText(productoOnline.nombre);
+                            txtProductoOnlinePrecio.setText(productoOnline.precio);
+                            txtProductoOnlineDescripcion.setText(productoOnline.descripcion);
+
+                            if (productoOnline.imagenUrl != null && !productoOnline.imagenUrl.isEmpty()) {
+                                Glide.with(CatalogoActivity.this)
+                                        .load(productoOnline.imagenUrl)
+                                        .into(imgProductoOnline);
+                            }
+                        } else {
+                            txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
+                            txtProductoOnlinePrecio.setText("");
+                            txtProductoOnlineDescripcion.setText("");
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     private void abrirDetalleLocal(String nombre, String precio, String descripcion, int imagen) {
         Intent intent = new Intent(CatalogoActivity.this, MainActivity.class);
         intent.putExtra("nombre", nombre);
@@ -112,5 +196,12 @@ public class CatalogoActivity extends AppCompatActivity {
         intent.putExtra("descripcion", descripcion);
         intent.putExtra("imagenUrl", imagenUrl);
         startActivity(intent);
+    }
+
+    private static class ProductoOnline {
+        String nombre;
+        String precio;
+        String descripcion;
+        String imagenUrl;
     }
 }

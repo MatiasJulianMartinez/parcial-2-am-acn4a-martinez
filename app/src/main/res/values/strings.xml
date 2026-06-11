@@ -37,6 +37,10 @@
     <string name="producto_harrow_precio">$64.999</string>
     <string name="producto_harrow_descripcion">Joystick inalámbrico gamer con vibración, diseño ergonómico y buena autonomía para sesiones de juego prolongadas.</string>
 
+    <string name="producto_online_titulo">Producto más comprado del mes</string>
+    <string name="cargando_producto_online">Cargando producto online.</string>
+    <string name="error_producto_online">No se pudo cargar el contenido online</string>
+
     <string name="volver_al_catalogo">Volver al catálogo</string>
     <string name="ir_al_carrito">Ir al carrito</string>
 
