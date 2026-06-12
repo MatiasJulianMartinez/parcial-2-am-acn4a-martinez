@@ -8,85 +8,135 @@
     android:background="@color/fondo_principal"
     tools:context=".CarritoActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_pantalla"
-        android:background="@color/fondo_carrito"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_carrito"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/resumen_del_carrito"
-            android:textColor="@color/color_titulo"
-            android:textSize="@dimen/texto_titulo_carrito"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtResumenProducto"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_grande"
-            android:text="@string/resumen_producto"
-            android:textColor="@color/color_texto_principal"
-            android:textSize="@dimen/texto_descripcion" />
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pantalla">
 
-        <TextView
-            android:id="@+id/txtResumenCantidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_mediano"
-            android:text="@string/resumen_cantidad"
-            android:textColor="@color/color_texto_principal"
-            android:textSize="@dimen/texto_descripcion" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
 
-        <TextView
-            android:id="@+id/txtResumenTotal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_mediano"
-            android:text="@string/resumen_total"
-            android:textColor="@color/color_precio"
-            android:textSize="@dimen/texto_precio"
-            android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/resumen_del_carrito"
+                    android:textColor="@color/color_titulo"
+                    android:textSize="@dimen/texto_titulo_carrito"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtEstadoCompra"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_mediano"
-            android:text="@string/estado_pendiente"
-            android:textColor="@color/color_subtitulo"
-            android:textSize="@dimen/texto_descripcion"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtResumenProducto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_grande"
+                    android:text="@string/resumen_producto"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_descripcion" />
 
-        <Button
-            android:id="@+id/btnPagar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_boton_principal"
-            android:text="@string/finalizar_compra" />
+                <TextView
+                    android:id="@+id/txtResumenCantidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/resumen_cantidad"
+                    android:textColor="@color/color_texto_principal"
+                    android:textSize="@dimen/texto_descripcion" />
 
-        <Button
-            android:id="@+id/btnVolverDetalle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_boton_secundario"
-            android:text="@string/volver_al_detalle" />
+                <TextView
+                    android:id="@+id/txtResumenTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/resumen_total"
+                    android:textColor="@color/color_precio"
+                    android:textSize="@dimen/texto_precio"
+                    android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnVolverCatalogoCarrito"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_boton_secundario"
-            android:text="@string/volver_al_catalogo" />
+                <TextView
+                    android:id="@+id/txtEstadoCompra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_mediano"
+                    android:text="@string/estado_pendiente"
+                    android:textColor="@color/color_subtitulo"
+                    android:textSize="@dimen/texto_descripcion"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/btnPagar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_boton_principal"
+                    android:text="@string/finalizar_compra" />
+
+                <Button
+                    android:id="@+id/btnVolverDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_boton_secundario"
+                    android:text="@string/volver_al_detalle" />
+
+                <Button
+                    android:id="@+id/btnVolverCatalogoCarrito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_boton_secundario"
+                    android:text="@string/volver_al_catalogo" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:text="@string/historial_compras"
+                android:textColor="@color/color_titulo_carrito"
+                android:textSize="@dimen/texto_titulo_carrito"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/layoutHistorialCompras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:background="@color/fondo_carrito"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_carrito">
+
+                <TextView
+                    android:id="@+id/txtHistorialVacio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/historial_vacio"
+                    android:textColor="@color/color_texto_vacio"
+                    android:textSize="@dimen/texto_carrito_vacio" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnBorrarHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_boton_secundario"
+                android:text="@string/borrar_historial" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,5 +56,15 @@
     <string name="cantidad_base">Cantidad: </string>
     <string name="estado_compra_realizada">Estado: compra realizada</string>
     <string name="pago_realizado">Pago realizado</string>
-    <string name="mensaje_pago_realizado">Pago realizado con éxito , recibira el seguimiento por correo.</string>
+    <string name="mensaje_pago_realizado">Pago realizado con éxito, recibirás el seguimiento por correo.</string>
+
+    <string name="historial_compras">Historial de compras</string>
+    <string name="historial_vacio">Todavía no hay compras registradas</string>
+    <string name="compra_numero_base">Compra N° </string>
+    <string name="mensaje_compra_guardada">Compra guardada correctamente en Firestore</string>
+    <string name="error_guardar_compra">No se pudo guardar la compra en Firestore</string>
+    <string name="error_cargar_historial">No se pudo cargar el historial de compras</string>
+    <string name="borrar_historial">Borrar historial</string>
+    <string name="historial_borrado">Historial borrado correctamente</string>
+    <string name="error_borrar_historial">No se pudo borrar el historial</string>
 </resources>
