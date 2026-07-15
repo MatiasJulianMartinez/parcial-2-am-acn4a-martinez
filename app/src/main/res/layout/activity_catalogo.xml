@@ -41,6 +41,23 @@
                 android:textColor="@color/color_subtitulo"
                 android:textSize="@dimen/texto_subtitulo" />
 
+            <TextView
+                android:id="@+id/txtUsuarioLogueado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:text="@string/usuario_logueado"
+                android:textColor="@color/color_texto_secundario"
+                android:textSize="@dimen/texto_subtitulo" />
+
+            <Button
+                android:id="@+id/btnCerrarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:text="@string/cerrar_sesion" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

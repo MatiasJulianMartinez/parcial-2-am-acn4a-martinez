@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -30,12 +34,18 @@ public class CatalogoActivity extends AppCompatActivity {
     private Button btnVerProducto2;
     private Button btnVerProducto3;
     private Button btnVerProducto4;
-    private ImageView imgProducto4;
+    private Button btnCerrarSesion;
 
+    private ImageView imgProducto4;
     private ImageView imgProductoOnline;
+
     private TextView txtProductoOnlineNombre;
     private TextView txtProductoOnlinePrecio;
     private TextView txtProductoOnlineDescripcion;
+    private TextView txtUsuarioLogueado;
+
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,22 +62,44 @@ public class CatalogoActivity extends AppCompatActivity {
             }
         });
 
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        if (auth.getCurrentUser() == null) {
+            volverAlLogin();
+            return;
+        }
+
         btnVerProducto1 = findViewById(R.id.btnVerProducto1);
         btnVerProducto2 = findViewById(R.id.btnVerProducto2);
         btnVerProducto3 = findViewById(R.id.btnVerProducto3);
         btnVerProducto4 = findViewById(R.id.btnVerProducto4);
-        imgProducto4 = findViewById(R.id.imgProducto4);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
+        imgProducto4 = findViewById(R.id.imgProducto4);
         imgProductoOnline = findViewById(R.id.imgProductoOnline);
+
         txtProductoOnlineNombre = findViewById(R.id.txtProductoOnlineNombre);
         txtProductoOnlinePrecio = findViewById(R.id.txtProductoOnlinePrecio);
         txtProductoOnlineDescripcion = findViewById(R.id.txtProductoOnlineDescripcion);
+        txtUsuarioLogueado = findViewById(R.id.txtUsuarioLogueado);
+
+        cargarDatosUsuario();
 
         Glide.with(this)
                 .load("https://redragon.es/content/uploads/2023/10/harrow-pro-660x520-1.png")
                 .into(imgProducto4);
 
         cargarProductoOnline();
+
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                Toast.makeText(CatalogoActivity.this, getString(R.string.mensaje_sesion_cerrada), Toast.LENGTH_SHORT).show();
+                volverAlLogin();
+            }
+        });
 
         btnVerProducto1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,64 +150,89 @@ public class CatalogoActivity extends AppCompatActivity {
         });
     }
 
+    private void cargarDatosUsuario() {
+        FirebaseUser usuarioActual = auth.getCurrentUser();
+
+        if (usuarioActual == null) {
+            volverAlLogin();
+            return;
+        }
+
+        db.collection("usuarios").document(usuarioActual.getUid()).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String email = documentSnapshot.getString("email");
+                        txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + email);
+                    } else {
+                        txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + usuarioActual.getEmail());
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + usuarioActual.getEmail());
+                    Toast.makeText(CatalogoActivity.this, getString(R.string.error_cargar_usuario), Toast.LENGTH_SHORT).show();
+                });
+    }
+
     private void cargarProductoOnline() {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://mocki.io/v1/aa5cef7f-92d0-4459-a58f-a684159c1d34")
+                .url("https://mocki.io/v1/c3ad5f1c-0fab-4aca-a19f-cb0d48efbe3c")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
-                        txtProductoOnlinePrecio.setText("");
-                        txtProductoOnlineDescripcion.setText("");
-                    }
-                });
+                mostrarErrorProductoOnline();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.body() == null) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
-                            txtProductoOnlinePrecio.setText("");
-                            txtProductoOnlineDescripcion.setText("");
-                        }
-                    });
+                if (!response.isSuccessful() || response.body() == null) {
+                    mostrarErrorProductoOnline();
                     return;
                 }
 
                 String json = response.body().string();
-                Gson gson = new Gson();
-                ProductoOnline productoOnline = gson.fromJson(json, ProductoOnline.class);
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (productoOnline != null) {
-                            txtProductoOnlineNombre.setText(productoOnline.nombre);
-                            txtProductoOnlinePrecio.setText(productoOnline.precio);
-                            txtProductoOnlineDescripcion.setText(productoOnline.descripcion);
+                try {
+                    Gson gson = new Gson();
+                    ProductoOnline productoOnline = gson.fromJson(json, ProductoOnline.class);
 
-                            if (productoOnline.imagenUrl != null && !productoOnline.imagenUrl.isEmpty()) {
-                                Glide.with(CatalogoActivity.this)
-                                        .load(productoOnline.imagenUrl)
-                                        .into(imgProductoOnline);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (productoOnline != null) {
+                                txtProductoOnlineNombre.setText(productoOnline.nombre);
+                                txtProductoOnlinePrecio.setText(productoOnline.precio);
+                                txtProductoOnlineDescripcion.setText(productoOnline.descripcion);
+
+                                if (productoOnline.imagenUrl != null && !productoOnline.imagenUrl.isEmpty()) {
+                                    Glide.with(CatalogoActivity.this)
+                                            .load(productoOnline.imagenUrl)
+                                            .into(imgProductoOnline);
+                                }
+                            } else {
+                                txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
+                                txtProductoOnlinePrecio.setText("");
+                                txtProductoOnlineDescripcion.setText("");
                             }
-                        } else {
-                            txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
-                            txtProductoOnlinePrecio.setText("");
-                            txtProductoOnlineDescripcion.setText("");
                         }
-                    }
-                });
+                    });
+                } catch (Exception e) {
+                    mostrarErrorProductoOnline();
+                }
+            }
+        });
+    }
+
+    private void mostrarErrorProductoOnline() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtProductoOnlineNombre.setText(getString(R.string.error_producto_online));
+                txtProductoOnlinePrecio.setText("");
+                txtProductoOnlineDescripcion.setText("");
             }
         });
     }
@@ -196,6 +253,12 @@ public class CatalogoActivity extends AppCompatActivity {
         intent.putExtra("descripcion", descripcion);
         intent.putExtra("imagenUrl", imagenUrl);
         startActivity(intent);
+    }
+
+    private void volverAlLogin() {
+        Intent intent = new Intent(CatalogoActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private static class ProductoOnline {

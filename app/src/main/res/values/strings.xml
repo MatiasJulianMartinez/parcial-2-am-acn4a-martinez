@@ -67,4 +67,23 @@
     <string name="borrar_historial">Borrar historial</string>
     <string name="historial_borrado">Historial borrado correctamente</string>
     <string name="error_borrar_historial">No se pudo borrar el historial</string>
+
+    <string name="login_titulo">Iniciar sesión</string>
+    <string name="registro_titulo">Crear cuenta</string>
+    <string name="email">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="volver_login">Volver al login</string>
+    <string name="mensaje_login_correcto">Inicio de sesión correcto</string>
+    <string name="mensaje_registro_correcto">Cuenta creada correctamente</string>
+    <string name="mensaje_campos_vacios">Completá email y contraseña</string>
+    <string name="mensaje_contrasena_corta">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_login">No se pudo iniciar sesión</string>
+    <string name="error_registro">No se pudo crear la cuenta</string>
+    <string name="error_guardar_usuario">No se pudieron guardar los datos del usuario</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="mensaje_sesion_cerrada">Sesión cerrada</string>
+    <string name="usuario_logueado">Usuario: </string>
+    <string name="error_cargar_usuario">No se pudieron cargar los datos del usuario</string>
 </resources>
