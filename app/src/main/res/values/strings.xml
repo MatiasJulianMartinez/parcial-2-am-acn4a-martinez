@@ -86,4 +86,10 @@
     <string name="mensaje_sesion_cerrada">Sesión cerrada</string>
     <string name="usuario_logueado">Usuario: </string>
     <string name="error_cargar_usuario">No se pudieron cargar los datos del usuario</string>
+
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="mensaje_datos_vacios">Completá nombre, apellido, email y contraseña</string>
+    <string name="mostrar_contrasena">Mostrar contraseña</string>
+    <string name="ocultar_contrasena">Ocultar contraseña</string>
 </resources>

@@ -2,9 +2,11 @@ package com.example.gamestore;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,7 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtContrasenaLogin;
     private Button btnIniciarSesion;
     private Button btnIrRegistro;
+    private ImageButton btnMostrarContrasenaLogin;
     private FirebaseAuth auth;
+    private boolean contrasenaVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         edtContrasenaLogin = findViewById(R.id.edtContrasenaLogin);
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         btnIrRegistro = findViewById(R.id.btnIrRegistro);
+        btnMostrarContrasenaLogin = findViewById(R.id.btnMostrarContrasenaLogin);
 
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +71,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnMostrarContrasenaLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cambiarVisibilidadContrasena();
             }
         });
     }
@@ -90,6 +102,22 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void cambiarVisibilidadContrasena() {
+        contrasenaVisible = !contrasenaVisible;
+
+        if (contrasenaVisible) {
+            edtContrasenaLogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            btnMostrarContrasenaLogin.setImageResource(R.drawable.ic_visibility);
+            btnMostrarContrasenaLogin.setContentDescription(getString(R.string.ocultar_contrasena));
+        } else {
+            edtContrasenaLogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            btnMostrarContrasenaLogin.setImageResource(R.drawable.ic_visibility_off);
+            btnMostrarContrasenaLogin.setContentDescription(getString(R.string.mostrar_contrasena));
+        }
+
+        edtContrasenaLogin.setSelection(edtContrasenaLogin.getText().length());
     }
 
     private void abrirCatalogo() {

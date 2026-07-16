@@ -6,69 +6,113 @@
     android:layout_height="match_parent"
     android:background="@color/fondo_principal">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_pantalla"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/gamestore"
-            android:textColor="@color/color_titulo"
-            android:textSize="@dimen/texto_titulo_tienda"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_pequeno"
-            android:text="@string/registro_titulo"
-            android:textColor="@color/color_subtitulo"
-            android:textSize="@dimen/texto_nombre_producto"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edtEmailRegistro"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_grande"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/color_texto_principal"
-            android:textColorHint="@color/color_texto_secundario" />
+            android:orientation="vertical"
+            android:padding="@dimen/padding_pantalla">
 
-        <EditText
-            android:id="@+id/edtContrasenaRegistro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_mediano"
-            android:hint="@string/contrasena"
-            android:inputType="textPassword"
-            android:textColor="@color/color_texto_principal"
-            android:textColorHint="@color/color_texto_secundario" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/gamestore"
+                android:textColor="@color/color_titulo"
+                android:textSize="@dimen/texto_titulo_tienda"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnCrearCuenta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_grande"
-            android:text="@string/crear_cuenta" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_pequeno"
+                android:text="@string/registro_titulo"
+                android:textColor="@color/color_subtitulo"
+                android:textSize="@dimen/texto_nombre_producto"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnVolverLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_mediano"
-            android:text="@string/volver_login" />
+            <EditText
+                android:id="@+id/edtNombreRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:hint="@string/nombre"
+                android:inputType="textPersonName"
+                android:textColor="@color/color_texto_principal"
+                android:textColorHint="@color/color_texto_secundario" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtApellidoRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:hint="@string/apellido"
+                android:inputType="textPersonName"
+                android:textColor="@color/color_texto_principal"
+                android:textColorHint="@color/color_texto_secundario" />
+
+            <EditText
+                android:id="@+id/edtEmailRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/color_texto_principal"
+                android:textColorHint="@color/color_texto_secundario" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edtContrasenaRegistro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/contrasena"
+                    android:inputType="textPassword"
+                    android:textColor="@color/color_texto_principal"
+                    android:textColorHint="@color/color_texto_secundario" />
+
+                <ImageButton
+                    android:id="@+id/btnMostrarContrasenaRegistro"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/mostrar_contrasena"
+                    android:src="@drawable/ic_visibility_off" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCrearCuenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_grande"
+                android:text="@string/crear_cuenta" />
+
+            <Button
+                android:id="@+id/btnVolverLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_mediano"
+                android:text="@string/volver_login" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

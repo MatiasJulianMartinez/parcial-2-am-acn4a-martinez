@@ -161,8 +161,14 @@ public class CatalogoActivity extends AppCompatActivity {
         db.collection("usuarios").document(usuarioActual.getUid()).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        String email = documentSnapshot.getString("email");
-                        txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + email);
+                        String nombre = documentSnapshot.getString("nombre");
+                        String apellido = documentSnapshot.getString("apellido");
+
+                        if (nombre != null && apellido != null && !nombre.isEmpty() && !apellido.isEmpty()) {
+                            txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + nombre + " " + apellido);
+                        } else {
+                            txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + usuarioActual.getEmail());
+                        }
                     } else {
                         txtUsuarioLogueado.setText(getString(R.string.usuario_logueado) + usuarioActual.getEmail());
                     }

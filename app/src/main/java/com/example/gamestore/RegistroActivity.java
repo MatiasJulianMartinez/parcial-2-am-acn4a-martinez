@@ -2,9 +2,11 @@ package com.example.gamestore;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,12 +27,17 @@ import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
 
+    private EditText edtNombreRegistro;
+    private EditText edtApellidoRegistro;
     private EditText edtEmailRegistro;
     private EditText edtContrasenaRegistro;
     private Button btnCrearCuenta;
     private Button btnVolverLogin;
+    private ImageButton btnMostrarContrasenaRegistro;
+
     private FirebaseAuth auth;
     private FirebaseFirestore db;
+    private boolean contrasenaVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +57,13 @@ public class RegistroActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        edtNombreRegistro = findViewById(R.id.edtNombreRegistro);
+        edtApellidoRegistro = findViewById(R.id.edtApellidoRegistro);
         edtEmailRegistro = findViewById(R.id.edtEmailRegistro);
         edtContrasenaRegistro = findViewById(R.id.edtContrasenaRegistro);
         btnCrearCuenta = findViewById(R.id.btnCrearCuenta);
         btnVolverLogin = findViewById(R.id.btnVolverLogin);
+        btnMostrarContrasenaRegistro = findViewById(R.id.btnMostrarContrasenaRegistro);
 
         btnCrearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,14 +78,23 @@ public class RegistroActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnMostrarContrasenaRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cambiarVisibilidadContrasena();
+            }
+        });
     }
 
     private void crearCuenta() {
+        String nombre = edtNombreRegistro.getText().toString().trim();
+        String apellido = edtApellidoRegistro.getText().toString().trim();
         String email = edtEmailRegistro.getText().toString().trim();
         String contrasena = edtContrasenaRegistro.getText().toString().trim();
 
-        if (email.isEmpty() || contrasena.isEmpty()) {
-            Toast.makeText(this, getString(R.string.mensaje_campos_vacios), Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contrasena.isEmpty()) {
+            Toast.makeText(this, getString(R.string.mensaje_datos_vacios), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -88,7 +107,7 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful() && auth.getCurrentUser() != null) {
-                    guardarDatosUsuario(auth.getCurrentUser().getUid(), email);
+                    guardarDatosUsuario(auth.getCurrentUser().getUid(), nombre, apellido, email);
                 } else {
                     Toast.makeText(RegistroActivity.this, getString(R.string.error_registro), Toast.LENGTH_SHORT).show();
                 }
@@ -96,8 +115,10 @@ public class RegistroActivity extends AppCompatActivity {
         });
     }
 
-    private void guardarDatosUsuario(String uid, String email) {
+    private void guardarDatosUsuario(String uid, String nombre, String apellido, String email) {
         Map<String, Object> datosUsuario = new HashMap<>();
+        datosUsuario.put("nombre", nombre);
+        datosUsuario.put("apellido", apellido);
         datosUsuario.put("email", email);
         datosUsuario.put("tipo", "cliente");
 
@@ -112,6 +133,22 @@ public class RegistroActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void cambiarVisibilidadContrasena() {
+        contrasenaVisible = !contrasenaVisible;
+
+        if (contrasenaVisible) {
+            edtContrasenaRegistro.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            btnMostrarContrasenaRegistro.setImageResource(R.drawable.ic_visibility);
+            btnMostrarContrasenaRegistro.setContentDescription(getString(R.string.ocultar_contrasena));
+        } else {
+            edtContrasenaRegistro.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            btnMostrarContrasenaRegistro.setImageResource(R.drawable.ic_visibility_off);
+            btnMostrarContrasenaRegistro.setContentDescription(getString(R.string.mostrar_contrasena));
+        }
+
+        edtContrasenaRegistro.setSelection(edtContrasenaRegistro.getText().length());
     }
 
     private void abrirCatalogo() {
