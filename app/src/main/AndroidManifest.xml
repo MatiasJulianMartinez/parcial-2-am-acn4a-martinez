@@ -19,6 +19,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CatalogoActivity" />
         <activity android:name=".RegistroActivity" />
+        <activity android:name=".PerfilActivity" />
 
         <activity
             android:name=".LoginActivity"

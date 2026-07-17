@@ -72,6 +72,13 @@
     <string name="registro_titulo">Crear cuenta</string>
     <string name="email">Correo electrónico</string>
     <string name="contrasena">Contraseña</string>
+    <string name="mi_perfil">Mi perfil</string>
+    <string name="perfil_titulo">Mi perfil</string>
+    <string name="volver_catalogo">Volver al catálogo</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="perfil_actualizado">Perfil actualizado correctamente</string>
+    <string name="error_actualizar_perfil">No se pudo actualizar el perfil</string>
+    <string name="error_usuario_no_logueado">No hay usuario logueado</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="crear_cuenta">Crear cuenta</string>
     <string name="volver_login">Volver al login</string>

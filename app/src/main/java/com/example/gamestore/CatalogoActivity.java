@@ -35,6 +35,7 @@ public class CatalogoActivity extends AppCompatActivity {
     private Button btnVerProducto3;
     private Button btnVerProducto4;
     private Button btnCerrarSesion;
+    private Button btnMiPerfil;
 
     private ImageView imgProducto4;
     private ImageView imgProductoOnline;
@@ -75,6 +76,7 @@ public class CatalogoActivity extends AppCompatActivity {
         btnVerProducto3 = findViewById(R.id.btnVerProducto3);
         btnVerProducto4 = findViewById(R.id.btnVerProducto4);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        btnMiPerfil = findViewById(R.id.btnMiPerfil);
 
         imgProducto4 = findViewById(R.id.imgProducto4);
         imgProductoOnline = findViewById(R.id.imgProductoOnline);
@@ -98,6 +100,14 @@ public class CatalogoActivity extends AppCompatActivity {
                 auth.signOut();
                 Toast.makeText(CatalogoActivity.this, getString(R.string.mensaje_sesion_cerrada), Toast.LENGTH_SHORT).show();
                 volverAlLogin();
+            }
+        });
+
+        btnMiPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CatalogoActivity.this, PerfilActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -148,6 +158,15 @@ public class CatalogoActivity extends AppCompatActivity {
                 );
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (auth != null && auth.getCurrentUser() != null && txtUsuarioLogueado != null) {
+            cargarDatosUsuario();
+        }
     }
 
     private void cargarDatosUsuario() {
