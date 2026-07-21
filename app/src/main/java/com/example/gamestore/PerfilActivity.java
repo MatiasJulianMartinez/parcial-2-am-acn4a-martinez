@@ -108,7 +108,7 @@ public class PerfilActivity extends AppCompatActivity {
         String apellido = edtApellidoPerfil.getText().toString().trim();
 
         if (nombre.isEmpty() || apellido.isEmpty()) {
-            Toast.makeText(this, getString(R.string.mensaje_campos_vacios), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.mensaje_perfil_vacio), Toast.LENGTH_SHORT).show();
             return;
         }
 

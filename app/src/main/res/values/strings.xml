@@ -97,6 +97,7 @@
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="mensaje_datos_vacios">Completá nombre, apellido, email y contraseña</string>
+    <string name="mensaje_perfil_vacio">Completá nombre y apellido</string>
     <string name="mostrar_contrasena">Mostrar contraseña</string>
     <string name="ocultar_contrasena">Ocultar contraseña</string>
 </resources>
